@@ -1,0 +1,44 @@
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%
+}
+
+body {
+    margin: auto;
+    width: 750px;
+    margin-bottom: 50px;
+}
+
+img {
+    width: 100px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 5px;
+    background: lightgray;
+}
+
+td { 
+    padding: 10px; 
+    border: 3px solid black;
+}
+
+tr td:nth-of-type(2) {
+    width: 100px;
+}
+
+tr td:nth-of-type(3) {
+    width: 300px;
+}
+
+tr td:nth-of-type(4) {
+    width: 200px;
+}
+
+.online {
+    background-color: lawngreen;
+}
+
+
