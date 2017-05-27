@@ -5,6 +5,34 @@ var usernames = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "brunofin
 
 var $table = $("tbody");
 
+$('#myTabs a').click(function (e) {
+    e.preventDefault();
+    console.log(e.target.id);
+    
+    if(e.target.id == "online") {
+        $("tr").each(function() {
+            console.log($(this));
+            if($(this).hasClass("online")) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    } else if (e.target.id == "offline") {
+        $("tr").each(function() {
+            if($(this).hasClass("online")) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    } else {
+        $("tr").each(function() {
+            $(this).show();
+        });
+    }
+});
+
 for(var i = 0; i < usernames.length; i++) {
     var user = usernames[i];
     var userInfoEP = endpoint + "users/" + user;
