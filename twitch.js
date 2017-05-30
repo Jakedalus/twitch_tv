@@ -25,7 +25,7 @@ $search.autocomplete({
             $("#" + val).parent().show(); 
             i++;
         });
-        $('#myTabs a').trigger("click");
+//        $('#myTabs a').trigger("click");
     },
     select: function(e, ui) {
         
@@ -54,24 +54,25 @@ $search.autocomplete({
 
 $search.on("keypress keyup", function() {
     var value = $(this).val().toLowerCase();
-    $('#myTabs a').trigger("click");
+//    $('#myTabs a').trigger("click");
     
     if(value == "") {
         $("tr").show();
     } 
-    $('#myTabs a').trigger("click");
-//    else {
-//        $("tr").hide();
-//    }
+
 });
 
 
 
-$('#myTabs a').click(function (e) {
+$('#myTabs a').click(function (e, tab) {
     e.preventDefault();
     console.log(e.target.id);
+    console.log(tab);
     
     if(e.target.id == "online") {
+        $("li").removeClass("active");
+//        e.target.addClass("active");
+        
         $("tr").each(function() {
             console.log($(this));
             if($(this).hasClass("online")) {
@@ -81,6 +82,9 @@ $('#myTabs a').click(function (e) {
             }
         });
     } else if (e.target.id == "offline") {
+        $("li").removeClass("active");
+//        e.target.addClass("active");
+        
         $("tr").each(function() {
             if($(this).hasClass("online")) {
                 $(this).hide();
@@ -89,6 +93,9 @@ $('#myTabs a').click(function (e) {
             }
         });
     } else {
+        $("li").removeClass("active");
+//        e.target.addClass("active");
+        
         $("tr").each(function() {
             $(this).show();
         });
