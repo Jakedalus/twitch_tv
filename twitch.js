@@ -29,8 +29,9 @@ function showRow(val) {
 $search.autocomplete({
     source: usernames,
     response: function(e, ui) {
-        
+        console.log("List1: ", list);
         list = ui.content;
+        console.log("List2: ", list);
 //        console.log(e);
 //        console.log(ui);
         var i = 0;
@@ -58,20 +59,31 @@ $search.autocomplete({
         showRow(val);
 //        $('#myTabs a').trigger("click");
         
-    },
-//    close: function(e, ui) {
+    }
+});
+
+//$search.on("autocompleteresponse", function(e, ui) {
+//        console.log("List1: ", list);
+//        if(list.length === 0) list = ui.content;
+//        
+//        console.log("List2: ", list);
 //        console.log(e);
+//        console.log(ui);
 //        var i = 0;
 //        $("tr").show();
 //        $("tr").hide();
+//        
 //        list.forEach(function() {
-//            console.log("#" + list[i].value);
-//            console.log($("#" + list[i].value));
-//            $("#" + list[i].value).parent().show(); 
+//            var val = list[i].value.toLocaleLowerCase();
+//            console.log("#" + val);
+//            console.log($("#" + val));
+//            
+//            showRow(val);
+//            
 //            i++;
 //        });
-//    }
-});
+////        $('#myTabs a').trigger("click");
+//});
 
 $search.on("keypress keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -101,40 +113,81 @@ $search.on("keypress keyup", function() {
 
 
 
+
+
 $('#myTabs a').click(function (e, tab) {
+
     e.preventDefault();
     console.log(e.target.id);
     console.log(tab);
+    var i = 0;
+    
+    var search_streams = [];
+    var lower_case_names = [];
+    for(var i = 0; i < usernames.length; i++) {
+        lower_case_names.push(usernames[i].toLocaleLowerCase());
+    }
+    
+    console.log("List: ", list);
+    if(list.length == 0) {
+        search_streams = lower_case_names;
+    } else {
+        list.forEach(function(item) {
+            search_streams.push(item.value);
+        });
+    }
+    console.log("Search: ", search_streams);
     
     if(e.target.id == "online") {
-        $("li").removeClass("active");
-//        e.target.addClass("active");
         
+        $("li").removeClass("active");
+
         $("tr").each(function() {
-            console.log($(this));
+            console.log("$(this): ", $(this));
+            var name = $(this).children()[1].id;
+            console.log("Name: ", name);
+            
             if($(this).hasClass("online")) {
-                $(this).show();
+                if(search_streams.indexOf(name) != -1){
+                    $(this).show();
+                }
+                
             } else {
                 $(this).hide();
             }
         });
     } else if (e.target.id == "offline") {
+
         $("li").removeClass("active");
-//        e.target.addClass("active");
+
         
         $("tr").each(function() {
+            console.log("$(this): ", $(this));
+            var name = $(this).children()[1].id;
+            console.log("Name: ", name);
             if($(this).hasClass("online")) {
-                $(this).hide();
+                
+                    $(this).hide();
+                
             } else {
-                $(this).show();
+                if(search_streams.indexOf(name) != -1){
+                    $(this).show();
+                }
+                
             }
         });
     } else {
+        
         $("li").removeClass("active");
-//        e.target.addClass("active");
+
         
         $("tr").each(function() {
-            $(this).show();
+            console.log("$(this): ", $(this));
+            var name = $(this).children()[1].id;
+            console.log("Name: ", name);
+            if(search_streams.indexOf(name) != -1){
+                $(this).show();
+            }
         });
     }
 });
