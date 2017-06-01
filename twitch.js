@@ -7,6 +7,25 @@ var $table = $("tbody");
 var $search = $("#search");
 var list = [];
 
+function showRow(val) {
+    var tab = $('li.active > a').attr("id");
+    var row = $("#" + val).parent();
+
+    console.log("Tab: ", tab);
+    console.log(row);
+    if(tab == "online") {
+        if(row.hasClass("online")) {
+            row.show(); 
+        }
+    } else if(tab == "offline") {
+        if(!row.hasClass("online")) {
+            row.show(); 
+        }
+    } else {
+        row.show(); 
+    }
+}
+
 $search.autocomplete({
     source: usernames,
     response: function(e, ui) {
@@ -22,7 +41,9 @@ $search.autocomplete({
             var val = list[i].value.toLocaleLowerCase();
             console.log("#" + val);
             console.log($("#" + val));
-            $("#" + val).parent().show(); 
+            
+            showRow(val);
+            
             i++;
         });
 //        $('#myTabs a').trigger("click");
@@ -34,8 +55,8 @@ $search.autocomplete({
         console.log($("td#" + val));
         $("tr").show();
         $("tr").hide();
-        $("#" + val).parent().show();
-        $('#myTabs a').trigger("click");
+        showRow(val);
+//        $('#myTabs a').trigger("click");
         
     },
 //    close: function(e, ui) {
@@ -56,8 +77,24 @@ $search.on("keypress keyup", function() {
     var value = $(this).val().toLowerCase();
 //    $('#myTabs a').trigger("click");
     
+    
     if(value == "") {
-        $("tr").show();
+        var tab = $('li.active > a').attr("id");
+        console.log("Rows: ", $("tr"));
+        $("tr").each(function(index) {
+            console.log("Row:", $(this));
+            if(tab == "online") {
+            if($(this).hasClass("online")) {
+                $(this).show(); 
+            }
+            } else if(tab == "offline") {
+                if(!$(this).hasClass("online")) {
+                    $(this).show(); 
+                }
+            } else {
+                $(this).show(); 
+            }
+        });
     } 
 
 });
