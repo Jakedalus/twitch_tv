@@ -91,6 +91,7 @@ $search.on("keypress keyup", function() {
     
     
     if(value == "") {
+        list = [];
         var tab = $('li.active > a').attr("id");
         console.log("Rows: ", $("tr"));
         $("tr").each(function(index) {
