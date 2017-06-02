@@ -87,6 +87,11 @@ a:hover {
     
 }
 
+input {
+    margin: 15px 0px;
+    font-family: 'FontAwesome';
+}
+
 .online {
     background-color: #00BF63;
     color: #004021;
